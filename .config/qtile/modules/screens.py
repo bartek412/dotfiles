@@ -3,6 +3,15 @@ from .widgets import *
 from libqtile.config import Screen
 import os
 
+
+colors = {
+    "violet": "#932191",
+    "ruby": "#AD3D6F",
+    "cedar": "#C7594B",
+    "deep-orange": "#E17327",
+    "orange": "#FF9300",
+}
+
 screens = [
     Screen(
         top=bar.Bar(
@@ -28,7 +37,7 @@ screens = [
                 widget.TextBox(text="", padding=0, fontsize=28, foreground="#2f343f"),
                 widget.Prompt(),
                 widget.Spacer(length=5),
-                widget.WindowName(foreground="#99c0de", fmt="{}"),
+                widget.WindowName(foreground="#ffffff", fmt="{}"),
                 widget.Chord(
                     chords_colors={
                         "launch": ("#ff0000", "#ffffff"),
@@ -49,50 +58,42 @@ screens = [
                     background="#2f343f",
                 ),
                 widget.Systray(icon_size=20),
-                widget.TextBox(text="", padding=0, fontsize=28, foreground="#2f343f"),
+                widget.Spacer(length=10),
+                left_half_circle(colors["violet"]),
                 widget.Backlight(
-                    background="#2f343f",
+                    background=colors["violet"],
                     backlight_name="amdgpu_bl0",
                     change_comands="",
                 ),
-                widget.TextBox(
-                    text="",
-                    padding=0,
-                    fontsize=28,
-                    foreground="#2f343f",
-                ),
-                widget.TextBox(text="", padding=0, fontsize=28, foreground="#2f343f"),
-                widget.Battery(background="#2f343f"),
-                widget.BatteryIcon(icon_size=20, background="#2f343f"),
-                widget.TextBox(
-                    text="",
-                    padding=0,
-                    fontsize=28,
-                    foreground="#2f343f",
-                ),
-                widget.TextBox(text="", padding=0, fontsize=28, foreground="#2f343f"),
+                right_half_circle(colors["violet"]),
+                widget.Spacer(length=10),
+                left_half_circle(colors["ruby"]),
+                widget.Battery(background=colors["ruby"]),
+                widget.Spacer(length=5, background=colors["ruby"]),
+                widget.BatteryIcon(icon_size=20, background=colors["ruby"]),
+                right_half_circle(colors["ruby"]),
+                widget.Spacer(length=10),
+                left_half_circle(colors["cedar"]),
                 widget.Volume(
-                    background="#2f343f",
+                    background=colors["cedar"],
                 ),
-                volume,
-                widget.TextBox(
-                    text="",
-                    padding=0,
-                    fontsize=28,
-                    foreground="#2f343f",
+                widget.Spacer(length=5, background=colors["cedar"]),
+                MyVolume(
+                    fontsize=18,
+                    font="Font Awesome 5 Free",
+                    foreground="#000000",
+                    background=colors["cedar"],
+                    mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("pavucontrol")},
                 ),
-                widget.TextBox(text="", padding=0, fontsize=28, foreground="#2f343f"),
+                right_half_circle(colors["cedar"]),
+                widget.Spacer(length=10),
+                left_half_circle(colors["deep-orange"]),
                 widget.Clock(
                     format=" %Y-%m-%d %a %I:%M %p",
-                    background="#2f343f",
-                    foreground="#9bd689",
+                    background=colors["deep-orange"],
                 ),
-                widget.TextBox(
-                    text="",
-                    padding=0,
-                    fontsize=28,
-                    foreground="#2f343f",
-                ),
+                right_half_circle(colors["deep-orange"]),
+                widget.Spacer(length=15),
                 widget.TextBox(
                     text="",
                     mouse_callbacks={
@@ -100,11 +101,13 @@ screens = [
                             os.path.expanduser("~/.config/rofi/powermenu.sh")
                         )
                     },
-                    foreground="#e39378",
                 ),
+                widget.Spacer(length=15),
             ],
-            30,  # height in px
-            background="#404552",  # background color
+            margin=[3, 10, 3, 10],
+            background="#00000000",
+            opacity=1,
+            size=25,
         ),
     ),
 ]
